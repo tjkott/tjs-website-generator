@@ -1,25 +1,42 @@
-Join the Skool - https://www.skool.com/iss-ai-automation-school-6342/about
+# TJS Service Website Generator 🚀
 
-# Claude Code Agent Orchestration System v2 🚀
-
-A simple yet powerful orchestration system for Claude Code that uses specialized agents to manage complex projects from start to finish, with mandatory human oversight and visual testing.
+A powerful orchestration system that generates complete, SEO-optimized local service websites with automated image scraping, lead capture forms, and location-based pages. Built on Claude Code's agent architecture with mandatory human oversight and visual testing.
 
 ## 🎯 What Is This?
 
-This is a **custom Claude Code orchestration system** that transforms how you build software projects. Claude Code itself acts as the orchestrator with its 200k context window, managing the big picture while delegating individual tasks to specialized subagents:
+This is a **service website generation system** that automatically creates fully-functional local service websites for any niche (plumbers, electricians, HVAC, lawyers, etc.). The system uses Claude Code as the orchestrator with specialized subagents for each task:
 
-- **🧠 Claude (You)** - The orchestrator with 200k context managing todos and the big picture
-- **✍️ Coder Subagent** - Implements one todo at a time in its own clean context
-- **👁️ Tester Subagent** - Verifies implementations using Playwright in its own context
-- **🆘 Stuck Subagent** - Human escalation point when ANY problem occurs
+- **🧠 Claude (Orchestrator)** - Manages the 200k context, creates todos, coordinates all agents
+- **🔧 Service Generator** - Creates service lists for any niche
+- **🖼️ Image Scraper** - Fetches high-quality images from Unsplash via Jina AI (s.jina and r.jina)
+- **🗄️ Database Agent** - Sets up Supabase for forms and lead capture
+- **✍️ Coder** - Generates location + service combination pages with SEO optimization
+- **👁️ Tester** - Verifies everything with Playwright (screenshots, navigation, forms)
+- **🆘 Stuck** - Human escalation when ANY issue occurs
 
 ## ⚡ Key Features
 
-- **No Fallbacks**: When ANY agent hits a problem, you get asked - no assumptions, no workarounds
-- **Visual Testing**: Playwright MCP integration for screenshot-based verification
-- **Todo Tracking**: Always see exactly where your project stands
-- **Simple Flow**: Claude creates todos → delegates to coder → tester verifies → repeat
-- **Human Control**: The stuck agent ensures you're always in the loop
+### Website Generation
+- **Service List Generation**: Automatically generates comprehensive service lists for any niche
+- **Location-Based Pages**: Creates service + location combination pages (e.g., "Plumber in Galway City")
+- **SEO-Optimized Content**: Clickbait titles, meta descriptions, and structured content
+- **Responsive Design**: Mobile-first templates that work on all devices
+
+### Image & Assets
+- **Automated Image Scraping**: Uses Jina AI (s.jina.ai and r.jina.ai) to fetch Unsplash images
+- **Context-Aware Images**: Images match service type and location context
+- **Optimized Assets**: Properly sized and formatted images
+
+### Lead Capture & Forms
+- **Supabase Integration**: Automated database setup for form submissions
+- **Contact Forms**: Pre-built forms on every page for lead generation
+- **Data Validation**: Client and server-side form validation
+
+### Quality Assurance
+- **No Fallbacks**: When ANY problem occurs, you get asked - no assumptions
+- **Visual Testing**: Playwright screenshots verify every page
+- **Link Verification**: Every header/footer link gets a real page - NO 404s
+- **Human Control**: Stuck agent ensures you're always in the loop
 
 ## 🚀 Quick Start
 
@@ -27,6 +44,8 @@ This is a **custom Claude Code orchestration system** that transforms how you bu
 
 1. **Claude Code CLI** installed ([get it here](https://docs.claude.com/en/docs/claude-code))
 2. **Node.js** (for Playwright MCP)
+3. **Jina AI API Key** ([get it here](https://jina.ai))
+4. **Supabase Account** (optional, for forms)
 
 ### Installation
 
@@ -43,100 +62,129 @@ That's it! The agents are automatically loaded from the `.claude/` directory.
 
 ## 📖 How to Use
 
-### Starting a Project
+### Generating a Service Website
 
-When you want to build something, just tell Claude your requirements:
+When you want to generate a service website, provide the niche, location, and API keys:
 
 ```
-You: "Build a todo app with React and TypeScript"
+You: "Generate a plumber website for Galway. Jina API key: abc123"
 ```
 
 Claude will automatically:
-1. Create a detailed todo list using TodoWrite
-2. Delegate the first todo to the **coder** subagent
-3. The coder implements in its own clean context window
-4. Delegate verification to the **tester** subagent (Playwright screenshots)
-5. If ANY problem occurs, the **stuck** subagent asks you what to do
-6. Mark todo complete and move to the next one
-7. Repeat until project complete
+1. Create a detailed todo list for the entire website
+2. Invoke **service-generator** to create comprehensive service lists
+3. Invoke **image-scraper** to fetch relevant images from Unsplash via Jina
+4. Invoke **database** agent to set up Supabase (if needed)
+5. Invoke **coder** to generate each location + service page with SEO optimization
+6. Invoke **tester** to verify every page (screenshots, navigation, forms)
+7. If ANY problem occurs, **stuck** agent asks you what to do
+8. Continue until complete website is generated
 
-### The Workflow
+### The Service Website Generation Workflow
 
 ```
-USER: "Build X"
+USER: "Generate [service] website for [location]"
     ↓
-CLAUDE: Creates detailed todos with TodoWrite
+CLAUDE: Creates detailed website todos with TodoWrite
     ↓
-CLAUDE: Invokes coder subagent for todo #1
+CLAUDE: Invokes service-generator subagent
     ↓
-CODER (own context): Implements feature
+SERVICE-GENERATOR: Creates service list (e.g., drain cleaning, pipe repair, etc.)
+    ↓
+CLAUDE: Invokes image-scraper subagent
+    ↓
+IMAGE-SCRAPER: Uses Jina AI (s.jina/r.jina) to fetch Unsplash images
     ↓
     ├─→ Problem? → Invokes STUCK → You decide → Continue
     ↓
-CODER: Reports completion
+CLAUDE: Invokes database subagent
+    ↓
+DATABASE: Sets up Supabase tables for forms
+    ↓
+CLAUDE: Invokes coder for each page
+    ↓
+CODER: Generates service + location pages with SEO content
+    ↓
+    ├─→ Problem? → Invokes STUCK → You decide → Continue
     ↓
 CLAUDE: Invokes tester subagent
     ↓
-TESTER (own context): Playwright screenshots & verification
+TESTER: Playwright verification (screenshots, links, forms)
     ↓
     ├─→ Test fails? → Invokes STUCK → You decide → Continue
     ↓
 TESTER: Reports success
     ↓
-CLAUDE: Marks todo complete, moves to next
+CLAUDE: Marks todo complete, moves to next page
     ↓
-Repeat until all todos done ✅
+Repeat until all pages generated ✅
 ```
 
-## 🛠️ How It Works
+## 🛠️ Available Subagents
 
-### Claude (The Orchestrator)
-**Your 200k Context Window**
+### Service Generator
+**Specialized Service List Creation**
 
-- Creates and maintains comprehensive todo lists
-- Sees the complete project from A-Z
-- Delegates individual todos to specialized subagents
-- Tracks overall progress across all tasks
-- Maintains project state and context
+- Generates comprehensive service lists for any niche
+- Creates SEO-friendly service names and descriptions
+- Provides service categories and subcategories
+- Returns structured data for page generation
 
-**How it works**: Claude IS the orchestrator - it uses its 200k context to manage everything
+**When it's used**: First step in website generation process
+
+### Image Scraper
+**Jina AI Integration for Unsplash**
+
+- Uses s.jina.ai to search Unsplash for relevant images
+- Uses r.jina.ai to scrape image URLs and metadata
+- Filters images by service type and location context
+- Returns optimized image URLs for page generation
+
+**When it's used**: After service list generation, before page creation
+
+### Database Agent
+**Supabase Setup & Configuration**
+
+- Creates Supabase tables for form submissions
+- Sets up authentication (if needed)
+- Configures API keys and environment variables
+- Returns connection details for forms
+
+**When it's used**: Before generating pages with forms
 
 ### Coder Subagent
-**Fresh Context Per Task**
+**Page Generation & Implementation**
 
-- Gets invoked with ONE specific todo item
-- Works in its own clean context window
-- Writes clean, functional code
+- Generates location + service combination pages
+- Creates SEO-optimized titles and meta descriptions
+- Implements contact forms with Supabase integration
+- Writes responsive HTML/CSS/JavaScript
 - **Never uses fallbacks** - invokes stuck agent immediately
-- Reports completion back to Claude
 
-**When it's used**: Claude delegates each coding todo to this subagent
+**When it's used**: For generating each website page
 
 ### Tester Subagent
-**Fresh Context Per Verification**
+**Playwright Visual Verification**
 
-- Gets invoked after each coder completion
-- Works in its own clean context window
-- Uses **Playwright MCP** to see rendered output
-- Takes screenshots to verify layouts
-- Tests interactions (clicks, forms, navigation)
+- Uses **Playwright MCP** to test rendered pages
+- Takes screenshots of every page layout
+- Tests navigation links (header/footer)
+- Verifies form submissions work
+- Checks responsive design on multiple viewports
 - **Never marks failing tests as passing**
-- Reports pass/fail back to Claude
 
-**When it's used**: Claude delegates testing after every implementation
+**When it's used**: After every page generation
 
 ### Stuck Subagent
-**Fresh Context Per Problem**
+**Human Escalation Point**
 
-- Gets invoked when coder or tester hits a problem
-- Works in its own clean context window
+- Gets invoked when ANY subagent hits a problem
 - **ONLY subagent** that can ask you questions
 - Presents clear options for you to choose
 - Blocks progress until you respond
 - Returns your decision to the calling agent
-- Ensures no blind fallbacks or workarounds
 
-**When it's used**: Whenever ANY subagent encounters ANY problem
+**When it's used**: Whenever ANY problem occurs
 
 ## 🚨 The "No Fallbacks" Rule
 
@@ -150,49 +198,79 @@ Every agent is **hardwired** to invoke the stuck agent rather than use fallbacks
 ## 💡 Example Session
 
 ```
-You: "Build a landing page with a contact form"
+You: "Generate a plumber website for Galway. Jina API key: jina_abc123xyz"
 
 Claude creates todos:
-  [ ] Set up HTML structure
-  [ ] Create hero section
-  [ ] Add contact form with validation
-  [ ] Style with CSS
-  [ ] Test form submission
+  [ ] Generate plumbing service list
+  [ ] Scrape plumber images from Unsplash via Jina
+  [ ] Set up Supabase for contact forms
+  [ ] Generate homepage with hero section
+  [ ] Generate service pages (drain cleaning, pipe repair, etc.)
+  [ ] Generate location pages (Galway City, Salthill, Oranmore, etc.)
+  [ ] Generate service + location combo pages
+  [ ] Create header navigation with all links
+  [ ] Create footer with service links
+  [ ] Test all pages and navigation
 
-Claude invokes coder(todo #1: "Set up HTML structure")
+Claude invokes service-generator("plumber services")
 
-Coder (own context): Creates index.html
-Coder: Reports completion to Claude
+Service-Generator: Creates list:
+  - Emergency Plumbing
+  - Drain Cleaning
+  - Pipe Repair
+  - Water Heater Installation
+  - Bathroom Fitting
+  - etc.
 
-Claude invokes tester("Verify HTML structure loads")
+Claude invokes image-scraper("plumber images", "jina_abc123xyz")
 
-Tester (own context): Uses Playwright to navigate
-Tester: Takes screenshot
-Tester: Verifies HTML structure visible
+Image-Scraper: Uses s.jina.ai to search Unsplash
+Image-Scraper: Uses r.jina.ai to scrape image URLs
+Image-Scraper: Returns 20+ relevant plumber images
+
+Claude invokes database("setup contact form tables")
+
+Database: Creates Supabase table 'contact_submissions'
+Database: Returns connection string
+
+Claude invokes coder("Generate homepage with hero section")
+
+Coder: Creates index.html with:
+  - SEO title: "Best Plumber in Galway - 24/7 Emergency Service"
+  - Hero image from scraped Unsplash images
+  - Contact form connected to Supabase
+  - Service list links
+  - Location links in footer
+
+Claude invokes tester("Verify homepage loads and form works")
+
+Tester: Launches Playwright
+Tester: Takes screenshot of homepage
+Tester: Clicks "Contact Us" button
+Tester: Fills out form
+Tester: ERROR - Form submission returns 403
+
+Tester: Invokes stuck subagent
+
+Stuck: Asks YOU:
+  "Form submission failed with 403 Forbidden. How to proceed?"
+  Options:
+  - Check Supabase API key configuration
+  - Disable form validation temporarily
+  - Review CORS settings
+
+You choose: "Check Supabase API key configuration"
+
+Stuck: Returns your decision to tester
+Tester: Verifies API key is correct
+Tester: Form now works
 Tester: Reports success to Claude
 
-Claude: Marks todo #1 complete ✓
+Claude: Marks homepage todo complete ✓
 
-Claude invokes coder(todo #2: "Create hero section")
+Claude invokes coder("Generate 'Drain Cleaning in Galway City' page")
 
-Coder (own context): Implements hero section
-Coder: ERROR - image file not found
-Coder: Invokes stuck subagent
-
-Stuck (own context): Asks YOU:
-  "Hero image 'hero.jpg' not found. How to proceed?"
-  Options:
-  - Use placeholder image
-  - Download from Unsplash
-  - Skip image for now
-
-You choose: "Download from Unsplash"
-
-Stuck: Returns your decision to coder
-Coder: Proceeds with Unsplash download
-Coder: Reports completion to Claude
-
-... and so on until all todos done
+... and so on until all pages generated
 ```
 
 ## 📁 Repository Structure
@@ -202,9 +280,12 @@ Coder: Reports completion to Claude
 ├── .claude/
 │   ├── CLAUDE.md              # Orchestration instructions for main Claude
 │   └── agents/
-│       ├── coder.md          # Coder subagent definition
-│       ├── tester.md         # Tester subagent definition
-│       └── stuck.md          # Stuck subagent definition
+│       ├── service-generator.md  # Service list generation agent
+│       ├── image-scraper.md      # Jina AI Unsplash scraper agent
+│       ├── database.md           # Supabase setup agent
+│       ├── coder.md              # Page generation agent
+│       ├── tester.md             # Playwright testing agent
+│       └── stuck.md              # Human escalation agent
 ├── .mcp.json                  # Playwright MCP configuration
 ├── .gitignore
 └── README.md
@@ -242,21 +323,25 @@ This system leverages Claude Code's [subagent system](https://docs.claude.com/en
 3. **Each subagent** gets its own fresh context window
 4. **Main Claude** maintains the 200k context with todos and project state
 5. **Playwright MCP** is configured in `.mcp.json` for visual testing
+6. **Jina AI** integration uses s.jina.ai (search) and r.jina.ai (reader) endpoints
 
 The magic happens because:
-- **Claude (200k context)** = Maintains big picture, manages todos
-- **Coder (fresh context)** = Implements one task at a time
-- **Tester (fresh context)** = Verifies one implementation at a time
+- **Claude (200k context)** = Maintains big picture, manages todos, coordinates all agents
+- **Service-Generator (fresh context)** = Creates service lists for specific niches
+- **Image-Scraper (fresh context)** = Fetches images via Jina AI's Unsplash integration
+- **Database (fresh context)** = Sets up Supabase for one website at a time
+- **Coder (fresh context)** = Generates one page at a time with SEO optimization
+- **Tester (fresh context)** = Verifies one page at a time with Playwright
 - **Stuck (fresh context)** = Handles one problem at a time with human input
-- **Each subagent** has specific tools and hardwired escalation rules
 
 ## 🎯 Best Practices
 
-1. **Trust Claude** - Let it create and manage the todo list
-2. **Review screenshots** - The tester provides visual proof of every implementation
+1. **Provide clear requirements** - Specify niche, location, and any API keys upfront
+2. **Review screenshots** - The tester provides visual proof of every page
 3. **Make decisions when asked** - The stuck agent needs your guidance
-4. **Don't interrupt the flow** - Let subagents complete their work
-5. **Check the todo list** - Always visible, tracks real progress
+4. **Verify navigation** - Ensure all header/footer links have actual pages (no 404s)
+5. **Test forms** - Check Supabase integration works for lead capture
+6. **Check SEO** - Review generated titles and meta descriptions
 
 ## 🔥 Pro Tips
 
@@ -265,6 +350,8 @@ The magic happens because:
 - Screenshots from tester are saved and can be reviewed
 - Each subagent has specific tools - check their `.md` files
 - Subagents get fresh contexts - no context pollution!
+- s.jina.ai is for searching Unsplash, r.jina.ai is for scraping content
+- Always verify ALL header/footer links have corresponding pages created
 
 ## 📜 License
 
@@ -274,8 +361,8 @@ MIT - Use it, modify it, share it!
 
 Built by [Income Stream Surfer](https://www.youtube.com/incomestreamsurfers)
 
-Powered by Claude Code's agent system and Playwright MCP.
+Powered by Claude Code's agent system, Playwright MCP, and Jina AI.
 
 ---
 
-**Ready to build something amazing?** Just run `claude` in this directory and tell it what you want to create! 🚀
+**Ready to generate a service website?** Just run `claude` in this directory and tell it what niche and location you want! 🚀
