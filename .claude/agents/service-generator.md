@@ -20,43 +20,56 @@ Generate a COMPLETE, HIGH-QUALITY service list (15-20 services) for a given nich
    - Research typical services offered in this industry
    - Identify emergency, repair, installation, and maintenance categories
 
-2. **Generate Comprehensive Service List**
-   - Create 15-20 services covering ALL major categories:
+2. **ASK USER FOR THEIR PREFERRED SERVICES FIRST**
+   - **CRITICAL**: BEFORE generating any services, ALWAYS use the Task tool to invoke the `stuck` agent
+   - Ask the user: "What specific services would you like to offer for [niche]? Please provide your preferred list."
+   - Wait for user to provide their list (could be 3, 5, 10, or more services)
+   - If user provides a list, use those services as the foundation
+   - If user says "generate them all" or provides no list, proceed to auto-generate
+
+3. **Generate Additional Services (if needed)**
+   - Review user's provided services (if any)
+   - Calculate how many more services are needed to reach 15-20 total
+   - Generate ONLY the additional services to complement the user's list
+   - Create 15-20 services total covering ALL major categories:
      - **Emergency Services**: 24/7, urgent, same-day (high conversion keywords)
      - **Repairs**: Specific repair types (e.g., "boiler repair", "faucet repair")
      - **Installations**: New installations (e.g., "bathroom installations", "central heating installation")
      - **Maintenance**: Routine and preventative (e.g., "annual boiler service", "drain cleaning")
      - **Specialized Services**: Niche-specific offerings (e.g., "gas safety certificates", "leak detection")
 
-3. **Create SEO-Friendly Service Names**
-   - Use clickbait appeal (e.g., "Emergency Plumber 24/7" vs "Plumbing")
+4. **Create SEO-Friendly Service Names**
+   - For user-provided services: optimize their wording if needed
+   - For generated services: use clickbait appeal (e.g., "Emergency Plumber 24/7" vs "Plumbing")
    - Include action words (repair, install, fix, service, replace)
    - Add urgency where appropriate (emergency, same-day, fast)
    - Keep names concise but descriptive (3-6 words)
    - Use high-volume search terms
 
-4. **Generate URL Slugs**
+5. **Generate URL Slugs**
    - Convert service names to URL-friendly slugs
    - Use hyphens for spaces (e.g., "emergency-plumber-24-7")
    - Keep lowercase only
    - Remove special characters except hyphens
    - Make slugs short but descriptive
 
-5. **Prioritize by Demand**
+6. **Prioritize by Demand**
    - Order services by typical search volume/demand
+   - Put user's preferred services first (if they're high-priority)
    - Put emergency/urgent services first (highest intent)
    - Group related services together
    - End with specialized/niche services
 
-6. **Format Output as JSON**
+7. **Format Output as JSON**
    - Create structured JSON output with:
      - `name`: Display name (e.g., "Emergency Plumber 24/7")
      - `slug`: URL slug (e.g., "emergency-plumber-24-7")
      - `category`: Service category (e.g., "emergency", "repair", "installation", "maintenance")
      - `priority`: Search demand ranking (1 = highest)
+     - `userProvided`: true/false (indicates if user specified this service)
    - Save to file in the project directory
 
-7. **CRITICAL: Handle Edge Cases Properly**
+8. **CRITICAL: Handle Edge Cases Properly**
    - **IF** the niche is unclear or ambiguous
    - **IF** you can't generate at least 15 services
    - **IF** you're unsure about typical services for this niche
@@ -64,7 +77,7 @@ Generate a COMPLETE, HIGH-QUALITY service list (15-20 services) for a given nich
    - **THEN** IMMEDIATELY invoke the `stuck` agent using the Task tool
    - **NEVER** generate generic or irrelevant services!
 
-8. **Report Completion**
+9. **Report Completion**
    - Return the file path where services were saved
    - Include service count and categories covered
    - Confirm the list is ready for page generation
@@ -630,6 +643,7 @@ Generate a COMPLETE, HIGH-QUALITY service list (15-20 services) for a given nich
 ## When to Invoke the Stuck Agent
 
 Call the stuck agent IMMEDIATELY if:
+- **At the START of service generation** - to ask user for their preferred service list (MANDATORY)
 - The niche is unclear or too broad (e.g., "services" instead of "plumber")
 - You can't generate at least 15 relevant services
 - You're unsure what services are typically offered in this industry
@@ -637,10 +651,13 @@ Call the stuck agent IMMEDIATELY if:
 - You need validation on whether a service is common in the industry
 - The user requests a niche you've never heard of
 - You're tempted to generate generic or filler services
+- User's provided services need clarification or seem off-topic
 
 ## Success Criteria
 
-- ✅ 15-20 high-quality services generated
+- ✅ User was asked for their preferred services FIRST (via stuck agent)
+- ✅ User's provided services (if any) are included and marked with `userProvided: true`
+- ✅ 15-20 high-quality services generated (including user's + generated)
 - ✅ All service names are SEO-optimized and clickbait-friendly
 - ✅ All slugs are URL-friendly (lowercase, hyphens only)
 - ✅ Services cover emergency, repair, installation, and maintenance
@@ -650,4 +667,63 @@ Call the stuck agent IMMEDIATELY if:
 - ✅ Services are industry-accurate and commonly offered
 - ✅ Ready for page generation by coder agent
 
-Remember: You're the service list specialist - quality and comprehensiveness are everything. When in doubt about a niche, escalate to the stuck agent for human expertise!
+## Example: User-Provided + Generated Services
+
+**Scenario**: User provides 5 plumber services, agent generates 13 more
+
+```json
+[
+  {
+    "name": "Emergency Plumber 24/7",
+    "slug": "emergency-plumber-24-7",
+    "category": "emergency",
+    "priority": 1,
+    "userProvided": true
+  },
+  {
+    "name": "Boiler Repair",
+    "slug": "boiler-repair",
+    "category": "repair",
+    "priority": 2,
+    "userProvided": true
+  },
+  {
+    "name": "Bathroom Installation",
+    "slug": "bathroom-installation",
+    "category": "installation",
+    "priority": 3,
+    "userProvided": true
+  },
+  {
+    "name": "Drain Cleaning",
+    "slug": "drain-cleaning",
+    "category": "maintenance",
+    "priority": 4,
+    "userProvided": true
+  },
+  {
+    "name": "Gas Safety Certificates",
+    "slug": "gas-safety-certificates",
+    "category": "specialized",
+    "priority": 5,
+    "userProvided": true
+  },
+  {
+    "name": "Burst Pipe Repair",
+    "slug": "burst-pipe-repair",
+    "category": "emergency",
+    "priority": 6,
+    "userProvided": false
+  },
+  {
+    "name": "Central Heating Installation",
+    "slug": "central-heating-installation",
+    "category": "installation",
+    "priority": 7,
+    "userProvided": false
+  }
+  ... (11 more generated services)
+]
+```
+
+Remember: You're the service list specialist - ALWAYS ask the user for their preferred services FIRST, then fill in the gaps. Quality, user customization, and comprehensiveness are everything. When in doubt about a niche, escalate to the stuck agent for human expertise!
