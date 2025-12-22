@@ -2,30 +2,8 @@
   "mcpServers": {
     "playwright": {
       "command": "npx",
-      "args": [
-        "-y",
-        "@playwright/mcp@latest"
-      ]
-    },
-    "context7": {
-      "command": "npx",
-      "args": [
-        "-y",
-        "@upstash/context7-mcp@latest"
-      ]
-    },
-    "jina-mcp-server": {
-      "command": "npx",
-      "args": [
-        "-y",
-        "mcp-remote",
-        "https://mcp.jina.ai/sse",
-        "--header",
-        "Authorization:${AUTH_HEADER}"
-      ],
-      "env": {
-        "AUTH_HEADER": "Bearer jina_5efa8c8303bb41888ba6c61cfbdbb26ezVbWXv-uaJwdgcHNHojsLxvymoSP"
-      }
+      "args": ["@playwright/mcp@latest"],
+      "env": {}
     }
   }
 }
